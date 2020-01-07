@@ -5,7 +5,7 @@ MAINTAINER Consul Team <consul@hashicorp.com>
 
 # This is the release of Consul to pull in.
 ENV CONSUL_VERSION=1.7.0-beta2
-ARG consulArch=amd64
+ARG consulArch=x86_64
 # This is the location of the releases.
 ENV HASHICORP_RELEASES=https://releases.hashicorp.com
 
