@@ -75,4 +75,3 @@ EXPOSE 8500 8600 8600/udp
 # process to reap any zombie processes created by Consul sub-processes.
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["agent", "-dev", "-client", "0.0.0.0"]
