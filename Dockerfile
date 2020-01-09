@@ -1,7 +1,7 @@
 #FROM consul:1.6.2
 #FROM consul:1.7.0-beta2
 FROM alpine:3.11
-MAINTAINER Consul Team <consul@hashicorp.com>
+MAINTAINER David das Neves <xdassie@gmail.com>
 
 # This is the release of Consul to pull in.
 ENV CONSUL_VERSION=1.7.0-beta2
@@ -11,9 +11,16 @@ ENV HASHICORP_RELEASES=https://releases.hashicorp.com
 
 # Create a consul user and group first so the IDs get set the same way, even as
 # the rest of this may change over time.
-RUN addgroup consul && \
-    adduser -S -G consul consul
+#RUN addgroup consul && \
+#    adduser -S -G consul consul
 
+# The /consul/data dir is used by Consul to store state. The agent will be started
+# with /consul/config as the configuration directory so you can add additional
+# config files in that location.
+ARG DIRLIST="/consul/data /consul/config /etc/consul"
+RUN mkdir -p ${DIRLIST}  && \ 
+    chgrp -Rf root ${DIRLIST} && chmod -Rf g+wrx  ${DIRLIST}
+    
 # Set up certificates, base tools, and Consul.
 # libc6-compat is needed to symlink the shared libraries for ARM builds
 RUN set -eux && \
@@ -42,12 +49,6 @@ RUN set -eux && \
 # tiny smoke test to ensure the binary we downloaded runs
     consul version
 
-# The /consul/data dir is used by Consul to store state. The agent will be started
-# with /consul/config as the configuration directory so you can add additional
-# config files in that location.
-RUN mkdir -p /consul/data && \
-    mkdir -p /consul/config && \
-    chown -R consul:consul /consul
 
 # set up nsswitch.conf for Go's "netgo" implementation which is used by Consul,
 # otherwise DNS supercedes the container's hosts file, which we don't want.
