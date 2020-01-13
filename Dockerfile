@@ -17,7 +17,7 @@ ENV HASHICORP_RELEASES=https://releases.hashicorp.com
 # The /consul/data dir is used by Consul to store state. The agent will be started
 # with /consul/config as the configuration directory so you can add additional
 # config files in that location.
-ARG DIRLIST="/consul/data /consul/config /etc/consul"
+ARG DIRLIST="/consul/data /consul/config /etc/consul /etc/consul.d"
 RUN mkdir -p ${DIRLIST}  && \ 
     chgrp -Rf root ${DIRLIST} && chmod -Rf g+wrx  ${DIRLIST}
     
