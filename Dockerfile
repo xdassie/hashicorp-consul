@@ -4,7 +4,7 @@ FROM alpine:3.11
 MAINTAINER David das Neves <xdassie@gmail.com>
 
 # This is the release of Consul to pull in.
-ENV CONSUL_VERSION=1.6.2
+ENV CONSUL_VERSION=1.7.3
 ARG consulArch=x86_64
 # This is the location of the releases.
 ENV HASHICORP_RELEASES=https://releases.hashicorp.com
